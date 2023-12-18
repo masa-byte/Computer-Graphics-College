@@ -42,7 +42,7 @@ void CGLRenderer::PrepareScene(CDC* pDC)
 	float green = 192.0f / 255.0f;
 	float blue = 255.0f / 255.0f;
 
-	glClearColor(red, green, blue, 1.0f);
+	glClearColor(0.f, 0.8f, 0.f, 1.f);
 	glEnable(GL_DEPTH_TEST);
 
 	wglMakeCurrent(NULL, NULL);
@@ -207,7 +207,7 @@ void CGLRenderer::DrawGrid(double width, double height, int nSegW, int nSegH)
 	glTranslatef(-width / 2, 0, -height / 2);
 
 	glBegin(GL_LINES);
-	SetColor(197, 226, 255);
+	SetColor(255, 255, 255);
 	for (int i = 0; i < nSegH; i++) 
 	{
 		for (int j = 0; j <= nSegW; j++)
@@ -240,120 +240,124 @@ void CGLRenderer::DrawFigure(double angle)
 	int segment = 12;
 
 	// pot
-	SetColor(221, 126, 40);
+	glColor3f(0.47, 0.00, 0.00);
 	DrawCylinder(0.4, 0.3, 0.4, 6);
 	glTranslatef(0, 0.4, 0);
 	DrawCylinder(0.2, 0.5, 0.5, 6);
 
 	// main body
 	glTranslatef(0, 0.2, 0);
-	SetColor(0, lightGreen, 0);
+	glColor3f(1.00, 0.60, 0.00);
 	DrawCylinder(cilinderHeight, cilinderRadius, cilinderRadius, segment);
 
 	glTranslatef(0, cilinderHeight + sphereRadius, 0);
-	SetColor(0, darkGreen, 0);
+	glColor3f(0.50, 0.75, 1.00);
 	DrawSphere(sphereRadius, segment, segment);
 
 	glPushMatrix();
 
+	// right arm
+	glColor3f(1.00, 0.60, 0.00);
+	glRotatef(-45, 1, 0, 0);
 	glTranslatef(0, sphereRadius, 0);
-	SetColor(0, lightGreen, 0);
+	DrawCone(cilinderHeight, cilinderRadius, segment);
+
+	glTranslatef(0, cilinderHeight + sphereRadius, 0);
+	glColor3f(0.50, 0.75, 1.00);
+	DrawSphere(sphereRadius, segment, segment);
+
+	glPopMatrix();
+
+	// left arm
+	glRotatef(45, 1, 0, 0);
+	glTranslatef(0, sphereRadius, 0);
+	glColor3f(1.00, 0.60, 0.00);
 	DrawCylinder(cilinderHeight, cilinderRadius, cilinderRadius, segment);
 
 	glTranslatef(0, cilinderHeight + sphereRadius, 0);
-	SetColor(0, darkGreen, 0);
+	glColor3f(0.50, 0.75, 1.00);
 	DrawSphere(sphereRadius, segment, segment);
 
-	// left branch 1
+	glPushMatrix();
+	glRotatef(45, 1, 0, 0);
+	glTranslatef(0, sphereRadius, 0);
+	glColor3f(1.00, 0.60, 0.00);
+	DrawCone(cilinderHeight, cilinderRadius, segment);
+
+	glTranslatef(0, cilinderHeight + sphereRadius, 0);
+	glColor3f(0.50, 0.75, 1.00);
+	DrawSphere(sphereRadius, segment, segment);
+
+	glPushMatrix();
+
+	glColor3f(1.00, 0.60, 0.00);
+	glRotatef(45, 1, 0, 0);
+	glTranslatef(0, sphereRadius, 0);
+	DrawCone(cilinderHeight, cilinderRadius, segment);
+
+	glTranslatef(0, cilinderHeight + sphereRadius, 0);
+	glColor3f(0.50, 0.75, 1.00);
+	DrawSphere(sphereRadius, segment, segment);
+
 	glPopMatrix();
+
+	glColor3f(1.00, 0.60, 0.00);
+	glRotatef(-45, 1, 0, 0);
+	glTranslatef(0, sphereRadius, 0);
+	DrawCone(cilinderHeight, cilinderRadius, segment);
+
+	glTranslatef(0, cilinderHeight + sphereRadius, 0);
+	glColor3f(0.50, 0.75, 1.00);
+	DrawSphere(sphereRadius, segment, segment);
+
+	glPopMatrix();
+	glPushMatrix();
+	glColor3f(1.00, 0.60, 0.00);
+	glRotatef(-45, 1, 0, 0);
+	glTranslatef(0, sphereRadius, 0);
+	DrawCone(cilinderHeight, cilinderRadius, segment);
+
+	glTranslatef(0, cilinderHeight + sphereRadius, 0);
+	glColor3f(0.50, 0.75, 1.00);
+	DrawSphere(sphereRadius, segment, segment);
+
+	glPopMatrix();
+	glRotatef(alphaAngle, 1, 0, 0);
+	glTranslatef(0, sphereRadius, 0);
+	glColor3f(1.00, 1.00, 0.00);
+	DrawCone(cilinderHeight, cilinderRadius, segment);
+
+	glTranslatef(0, cilinderHeight + sphereRadius, 0);
+	glColor3f(0.50, 0.75, 1.00);
+	DrawSphere(sphereRadius, segment, segment);
+
 	glPushMatrix();
 
 	glRotatef(45, 1, 0, 0);
 	glTranslatef(0, sphereRadius, 0);
-	SetColor(0, lightGreen, 0);
+	glColor3f(1.00, 0.60, 0.00);
 	DrawCylinder(cilinderHeight, cilinderRadius, cilinderRadius, segment);
-
 	glTranslatef(0, cilinderHeight + sphereRadius, 0);
-	SetColor(0, darkGreen, 0);
+	glColor3f(0.50, 0.75, 1.00);
 	DrawSphere(sphereRadius, segment, segment);
 
-	glTranslatef(0, sphereRadius, 0);
-	SetColor(0, lightGreen, 0);
-	DrawCone(cilinderHeight, cilinderRadius, segment);
-
-	glTranslatef(0, cilinderHeight + sphereRadius, 0);
-	SetColor(0, darkGreen, 0);
-	DrawSphere(sphereRadius, segment, segment);
-
-	// right branch 1
 	glPopMatrix();
 	glPushMatrix();
 
+	glTranslatef(0, sphereRadius, 0);
+	glColor3f(1.00, 0.60, 0.00);
+	DrawCylinder(cilinderHeight, cilinderRadius, cilinderRadius, segment);
+	glTranslatef(0, cilinderHeight + sphereRadius, 0);
+	glColor3f(0.50, 0.75, 1.00);
+	DrawSphere(sphereRadius, segment, segment);
+
+	glPopMatrix();
 	glRotatef(-45, 1, 0, 0);
 	glTranslatef(0, sphereRadius, 0);
-	SetColor(0, lightGreen, 0);
+	glColor3f(1.00, 0.60, 0.00);
 	DrawCylinder(cilinderHeight, cilinderRadius, cilinderRadius, segment);
-
 	glTranslatef(0, cilinderHeight + sphereRadius, 0);
-	SetColor(0, darkGreen, 0);
-	DrawSphere(sphereRadius, segment, segment);
-
-	glTranslatef(0, sphereRadius, 0);
-	SetColor(0, lightGreen, 0);
-	DrawCone(cilinderHeight, cilinderRadius, segment);
-
-	glTranslatef(0, cilinderHeight + sphereRadius, 0);
-	SetColor(0, darkGreen, 0);
-	DrawSphere(sphereRadius, segment, segment);
-
-	glTranslatef(0, sphereRadius, 0);
-	SetColor(0, lightGreen, 0);
-	DrawCone(cilinderHeight, cilinderRadius, segment);
-
-	glTranslatef(0, cilinderHeight + sphereRadius, 0);
-	SetColor(0, darkGreen, 0);
-	DrawSphere(sphereRadius, segment, segment);
-
-	// left branch 2
-	glPopMatrix();
-	glTranslatef(0, sphereRadius + cilinderHeight + sphereRadius, 0);
-	glPushMatrix();
-
-	glRotatef(45 + alphaAngle, 1, 0, 0);
-	glTranslatef(0, sphereRadius, 0);
-	SetColor(255, 255, 0);
-	DrawCylinder(cilinderHeight, cilinderRadius, cilinderRadius, segment);
-
-	glTranslatef(0, cilinderHeight + sphereRadius, 0);
-	SetColor(0, darkGreen, 0);
-	DrawSphere(sphereRadius, segment, segment);
-
-	glTranslatef(0, sphereRadius, 0);
-	SetColor(0, lightGreen, 0);
-	DrawCone(cilinderHeight, cilinderRadius, segment);
-
-	glTranslatef(0, cilinderHeight + sphereRadius, 0);
-	SetColor(0, darkGreen, 0);
-	DrawSphere(sphereRadius, segment, segment);
-
-	// right branch 2
-	glPopMatrix();
-
-	glRotatef(-45, 1, 0, 0);
-	glTranslatef(0, sphereRadius, 0);
-	SetColor(0, lightGreen, 0);
-	DrawCylinder(cilinderHeight, cilinderRadius, cilinderRadius, segment);
-
-	glTranslatef(0, cilinderHeight + sphereRadius, 0);
-	SetColor(0, darkGreen, 0);
-	DrawSphere(sphereRadius, segment, segment);
-
-	glTranslatef(0, sphereRadius, 0);
-	SetColor(0, lightGreen, 0);
-	DrawCylinder(cilinderHeight, cilinderRadius, cilinderRadius, segment);
-
-	glTranslatef(0, cilinderHeight + sphereRadius, 0);
-	SetColor(0, darkGreen, 0);
+	glColor3f(0.50, 0.75, 1.00);
 	DrawSphere(sphereRadius, segment, segment);
 
 
