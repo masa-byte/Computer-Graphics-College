@@ -631,8 +631,8 @@ void CGLRenderer::CreateLights()
 	float spot_direction[] = { -1.0f, 0.0f, 0.0f };
 
 	// directional light
-	lightPosition[1] = 0.5;
-	lightPosition[2] = 1;
+	lightPosition[1] = cos(60 * PI / 180);
+	lightPosition[2] = sin(60 * PI / 180);
 	lightPosition[3] = 0;
 	glEnable(GL_LIGHT0);
 	SetLight0(lightAmbient, lightDiffuse, lightSpecular, lightPosition);
