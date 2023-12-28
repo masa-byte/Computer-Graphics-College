@@ -119,18 +119,16 @@ void CGLRenderer::DrawSphere(double r, int nSegAlpha, int nSegBeta)
 
 	SelectTexture(truckId);
 
-	int k1 = 360 / alpha;
-	int k2 = 360 / beta;
-	double step1 = 0.5 / k1;
-	double step2 = 1. / k2;
+	double step1 = 0.5 / nSegAlpha;
+	double step2 = 1. / nSegBeta;
 
 	int counter1 = 0;
-	for (int i = -180; i < 180; i += alpha)
+	for (int i = -90; i < 90; i += alpha)
 	{
-		glBegin(GL_QUAD_STRIP);
 		int counter2 = 0;
 		for (int j = 0; j <= 360; j += beta)
 		{
+			glBegin(GL_QUADS);
 			double x1 = r * cos(i * factor) * cos(j * factor);
 			double y1 = r * sin(i * factor);
 			double z1 = r * cos(i * factor) * sin(j * factor);
@@ -139,23 +137,46 @@ void CGLRenderer::DrawSphere(double r, int nSegAlpha, int nSegBeta)
 			double ny1 = r * sin(i * factor);
 			double nz1 = r * cos(i * factor) * sin(j * factor);
 
-			double x2 = r * cos((i + alpha) * factor) * cos(j * factor);
-			double y2 = r * sin((i + alpha) * factor);
-			double z2 = r * cos((i + alpha) * factor) * sin(j * factor);
+			double x2 = r * cos(i * factor) * cos((j + beta) * factor);
+			double y2 = r * sin(i * factor);
+			double z2 = r * cos(i * factor) * sin((j + beta) * factor);
 
-			double nx2 = r * cos((i + alpha / 2) * factor) * cos(j * factor);
-			double ny2 = r * sin((i + alpha / 2) * factor);
-			double nz2 = r * cos((i + alpha / 2) * factor) * sin(j * factor);
+			double nx2 = r * cos(i * factor) * cos((j + beta) * factor);
+			double ny2 = r * sin(i * factor);
+			double nz2 = r * cos(i * factor) * sin((j + beta) * factor);
 
-			glNormal3f(nx2, ny2, nz2);
-			glTexCoord2f(1 - counter2 * step2, 1 - (counter1 + 1) * step1);
-			glVertex3f(x2, y2, z2);
+			double x3 = r * cos((i + alpha) * factor) * cos((j + beta) * factor);
+			double y3 = r * sin((i + alpha) * factor);
+			double z3 = r * cos((i + alpha) * factor) * sin((j + beta) * factor);
+
+			double nx3 = r * cos((i + alpha) * factor) * cos((j + beta) * factor);
+			double ny3 = r * sin((i + alpha) * factor);
+			double nz3 = r * cos((i + alpha) * factor) * sin((j + beta) * factor);
+
+			double x4 = r * cos((i + alpha) * factor) * cos(j * factor);
+			double y4 = r * sin((i + alpha) * factor);
+			double z4 = r * cos((i + alpha) * factor) * sin(j * factor);
+
+			double nx4 = r * cos((i + alpha) * factor) * cos(j * factor);
+			double ny4 = r * sin((i + alpha) * factor);
+			double nz4 = r * cos((i + alpha) * factor) * sin(j * factor);
+
+
 			glNormal3f(nx1, ny1, nz1);
 			glTexCoord2f(1 - counter2 * step2, 1 - counter1 * step1);
 			glVertex3f(x1, y1, z1);
+			glNormal3f(nx2, ny2, nz2);
+			glTexCoord2f(1 - (counter2 + 1) * step2, 1 - counter1 * step1);
+			glVertex3f(x2, y2, z2);
+			glNormal3f(nx3, ny3, nz3);
+			glTexCoord2f(1 - (counter2 + 1) * step2, 1 - (counter1 + 1) * step1);
+			glVertex3f(x3, y3, z3);
+			glNormal3f(nx4, ny4, nz4);
+			glTexCoord2f(1 - counter2 * step2, 1 - (counter1 + 1) * step1);
+			glVertex3f(x4, y4, z4);
 			counter2++;
+			glEnd();
 		}
-		glEnd();
 		counter1++;
 	}
 }
