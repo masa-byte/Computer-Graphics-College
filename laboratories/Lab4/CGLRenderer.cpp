@@ -103,7 +103,7 @@ void CGLRenderer::DrawSphere(double r, int nSegAlpha, int nSegBeta)
 	int alpha = 180 / nSegAlpha;
 	int beta = 360 / nSegBeta;
 
-	for (int i = -180; i < 180; i += alpha)
+	for (int i = -90; i < 90; i += alpha)
 	{
 		glBegin(GL_QUAD_STRIP);
 		for (int j = 0; j <= 360; j += beta)

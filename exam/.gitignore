@@ -51,4 +51,5 @@ Thumbs.db
 x64
 *.sln
 *.vs
-
+exam/*/Debug
+exam/*/*/Debug

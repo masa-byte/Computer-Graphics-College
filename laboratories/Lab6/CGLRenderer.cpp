@@ -133,25 +133,25 @@ void CGLRenderer::DrawSphere(double r, int nSegAlpha, int nSegBeta)
 			double y1 = r * sin(i * factor);
 			double z1 = r * cos(i * factor) * sin(j * factor);
 
-			double nx1 = r * cos(i * factor) * cos(j * factor);
-			double ny1 = r * sin(i * factor);
-			double nz1 = r * cos(i * factor) * sin(j * factor);
+			double nx1 = cos(i * factor) * cos(j * factor);
+			double ny1 = sin(i * factor);
+			double nz1 = cos(i * factor) * sin(j * factor);
 
 			double x2 = r * cos(i * factor) * cos((j + beta) * factor);
 			double y2 = r * sin(i * factor);
 			double z2 = r * cos(i * factor) * sin((j + beta) * factor);
 
-			double nx2 = r * cos(i * factor) * cos((j + beta) * factor);
-			double ny2 = r * sin(i * factor);
-			double nz2 = r * cos(i * factor) * sin((j + beta) * factor);
+			double nx2 = cos(i * factor) * cos((j + beta) * factor);
+			double ny2 = sin(i * factor);
+			double nz2 = cos(i * factor) * sin((j + beta) * factor);
 
 			double x3 = r * cos((i + alpha) * factor) * cos((j + beta) * factor);
 			double y3 = r * sin((i + alpha) * factor);
 			double z3 = r * cos((i + alpha) * factor) * sin((j + beta) * factor);
 
-			double nx3 = r * cos((i + alpha) * factor) * cos((j + beta) * factor);
-			double ny3 = r * sin((i + alpha) * factor);
-			double nz3 = r * cos((i + alpha) * factor) * sin((j + beta) * factor);
+			double nx3 = cos((i + alpha) * factor) * cos((j + beta) * factor);
+			double ny3 = sin((i + alpha) * factor);
+			double nz3 = cos((i + alpha) * factor) * sin((j + beta) * factor);
 
 			double x4 = r * cos((i + alpha) * factor) * cos(j * factor);
 			double y4 = r * sin((i + alpha) * factor);
